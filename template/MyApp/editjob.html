@@ -1,0 +1,284 @@
+{% extends 'MyApp/base.html' %}
+{% block body_block %}
+  <body>
+
+<font color="green">
+{#<table>#}
+{#    <tr align="center"><td style="width:1400px"><h1 style="color:darkcyan">Welcome TO JOB PORTAL......</h1></td></tr>#}
+{#</table>#}
+</font>
+
+{#     <td width="1000"><table align="center" border="1">#}
+{##}
+{#    {%  for showuser in show %}#}
+{#        <tr>#}
+{#        <td>{{ showuser.username}}</td>#}
+{#        <td>{{ showuser.password }}</td>#}
+{#        </tr>#}
+{##}
+{#        {% endfor %}#}
+{#<a href="/logout/" class="btn btn-success">Logout</a>#}
+{#{% include "sideindex.html" %}#}
+<style type="text/css">
+      @media only screen and (max-width: 600px)
+      {
+      .container{
+        width:100%;
+       float:left;
+      }
+        .table1 th
+        {
+          font-size:12px;
+
+        }
+        .table2 td
+        {
+         font-size:13px;
+
+
+        }
+         #sidebar {
+
+          width: 115%;
+          font-size:10px;
+         }
+         #sidebar li a p{
+
+          font-size:2px;
+         }
+
+
+      }
+      form p input
+        {
+        border: none;
+        background: none;
+        color:blue;
+        }
+       .table1 th
+        {
+          padding-left: 35px;
+          text-align: left;
+           position: -webkit-sticky; /* Safari */
+          position: sticky;
+          top: 0;
+          background: pink;
+        }
+         .table2 td{
+          text-align: left;
+          vertical-align: top;
+          padding-left: 15px;
+        }
+         .disabled {
+    pointer-events:none;
+    opacity:0.6;
+}
+        #profile_menu {
+          list-style-type: none;
+          text-decoration: underline;
+          display: none;
+         margin-left: 60%;
+    width: 15%;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        #jobshow{
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          color:black;
+        }
+
+
+    </style>
+     <style type="text/css">
+        #reg_form, #login_form, #job_form, #profile_form,  #edit_job_form, #apply_job_form, #msg,.recvd_msgs,.send_msgs,.recd_msgs,#reply_form,.sent_msgs,#msg_form,#reset_pwd_form,#forgot_pwd_form{
+         margin-top:2px;
+    width: 30%;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        @media only screen and (max-width:600px)
+        {
+         #reg_form, #login_form, #job_form, #profile_form,  #edit_job_form, #apply_job_form, #msg,.send_msgs,.recvd_msgs,.recd_msgs,#reply_form,.sent_msgs,#msg_form,#reset_pwd_form,#forgot_pwd_form
+         {
+          width:80%;
+
+        }
+       #jobapp{
+
+        overflow-x: auto;
+       }
+
+       }
+
+
+     </style>
+
+   <style type="text/css">
+     .form-control{
+        border:none;
+        }
+       #show_prof td:nth-child(even){
+          font-size: 20px;
+          font-style: italic;
+        }
+        #show_prof td:nth-child(odd){
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#profile").click(function(){
+          $("#profile_menu").slideToggle("slow");
+        });
+      });
+    </script>
+    <script>
+$(document).ready(function(){
+    $("#update_details").hide();
+
+    $("#edit").click(function(){
+     $("#edit_details").slideUp(2000);
+      $("#update_details").slideDown(2000);
+    });
+    $("#close").click(function(){
+      $("#update_details").slideUp(2000);
+       $("#edit_details").slideDown(2000);
+    });
+  });
+
+ </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+       $("#msg").hide();
+      $(".sent_msgs").hide();
+      $("#rec_msg").click(function(){
+        $(".recd_msgs").show();
+        $("#msg").hide();
+         $(".sent_msgs").hide();
+      });
+       $("#write_msg").click(function(){
+        $(".recd_msgs").hide();
+         $(".sent_msgs").hide();
+        $("#msg").show();
+      });
+       $("#sent_msg").click(function(){
+        $(".sent_msgs").show();
+         $(".recd_msgs").hide();
+          $("#msg").hide();
+       });
+
+     $("#close").click(function(){
+      $("#msg_form").hide();
+     });
+    });
+  </script>
+ <script type="text/javascript">
+      $(document).ready(function(){
+        $("#picture").hide();
+        $("#utype").change(function(){
+          if($(this).val()=="Employee"){
+            $("#picture").show();
+          }
+          else{
+            $("#picture").hide();
+          }
+        });
+      });
+    </script>
+
+    <p align='center'>{% if 'Employer' in request.session.type %}  {% else %}Please <a href='/login/' target='_blank'>Login</a> as Employer to post a job {% endif %}</p>
+ <div class="container-fluid"  id="job_form">
+
+ {% for detail in edit  %}
+    {% if message %}
+<div class="alert alert-danger text-center  alert-dismissible" >
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+ {{ message}}
+</div>
+{% endif %}
+    <form action="/updatejob/" method="post"  enctype="multipart/form-data">
+         {% csrf_token %}
+
+     <h2 class="bg-primary text-center text-white" style="border-radius:5px">Edit Job</h2>
+
+{#   <p style="color:red">(Only Employers can post the job)</p>    #}
+        <div class="form-group">
+     <label>Company name:</label>
+            <input type="hidden" name="jobid" value="{{ detail.id }}">
+      <input type="text" class="form-control" id="company" placeholder="Enter company name" name="company" value="{{ detail.companyname }}" required>
+     </div>
+
+
+     <div class="form-group">
+      <label>Country</label>
+    <select class="form-control" name="country" value="{{ detail.country }}" id="country" >
+      <option value=India>India</option> <option value="Other">Other</option>
+
+   </select>
+ </div>
+<body>
+<div class="form-group">
+  <label>Pincode</label>
+
+<input type="text" class="form-control" name="pincode" value="{{ detail.pincode }}" id="pin" placeholder="enter pincode">  </div>
+  <div class="form-group" id="city">
+<label>City</label>
+<input type="text" class="form-control" id="city" placeholder="Enter City" value="{{ detail.city}}" name="city"required>
+</div>
+<div class="form-group" id="state" >
+ <label>State</label>
+<input type="text" class="form-control" id="state" placeholder="Enter State" value="{{ detail.state }}" name="state"required></div>
+
+       <div class="form-group">
+      <label>Address:</label>
+    <input type="text" class="form-control" id="address" placeholder="Enter adderss" value="{{ detail.address }}"name="address"required >
+     </div>
+         <div class="form-group">
+      <label>Vacancy Name:</label>
+    <input type="text" class="form-control" id="vacancy_name" placeholder="Eg. Web developer, Sales, Teacher"value="{{ detail.vacancyname }}" name="vacancy_name"required >
+     </div>
+     <div class="form-group">
+      <label>Vacancy Type:</label>
+   <select class="form-control" name="vacancy_type" value="" id="vacancy_type">
+    <option >{{ detail.vacancytype }}</option>
+    <option >Select</option>
+    <option value="Full Time">Full Time</option>
+    <option value="Part Time">Part Time</option>
+     <option value="Permanent">Permanent</option>
+      <option value="Temporary">Temporary</option>
+
+   </select>
+     </div>
+     <div class="form-group">
+      <label>Salary:</label>
+      <input type="text" name="salary" id="salary" class="form-control" value="{{ detail.salary }}" placeholder="Enter monthly salary">
+    </div>
+     <div class="form-group">
+      <label>Qualification:</label>
+    <input type="text" class="form-control" id="req_qlf" placeholder="Enter required qualification" value="{{ detail.qualification }}" name="req_qlf">
+     </div>
+
+   <div class="form-group">
+      <label>About Job:</label>
+      <textarea  class="form-control" id="particulars" placeholder="Enter about job"  name="particulars">{{ detail.aboutjob }}</textarea >
+     </div>
+   <div class="form-group">
+      <label>Vacancy:</label>
+    <input type="text" class="form-control" id="vacancy" placeholder="enter no. of vacancies" value="{{ detail.vacancy}}"name="vacancy"  >
+     </div>
+    <button type="submit" name="update" class="btn btn-primary">Update</button>
+      <button type="submit" name="back" class="btn btn-danger" onclick="history.back();">Back</button>
+
+  </form>
+{% endfor %}
+</div>
+
+
+</body>
+
+{% endblock %}

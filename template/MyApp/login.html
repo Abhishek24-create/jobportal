@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'MyApp/base.html' %}
+{% block body_block %}
+<body>
+{% if message %}
+<div class="alert alert-danger text-center  alert-dismissible" >
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+ {{ message}}
+</div>
+{% endif %}
+ <div class="container-fluid " id="login_form">
+     <div class="col-sm-4 card shadow-lg p-4 mb-4 mx-auto">
+
+   	<form action="/login/" method="post"  >
+        {% csrf_token %}
+
+  	 <h2 class="bg-primary text-center text-white" style="border-radius:5px">Login</h2>
+
+    <div class="form-group">
+     <label>USEREMAIL:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter useremail" name="email" required>
+     </div>
+     <div class="form-group">
+      <label>PASSWORD:</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required maxlength="6" size="6">
+     </div>
+       <div class="form-group   ">
+      <label>TYPE:</label><br>
+           <select name="select" class="form-control" required>
+               <option selected disabled>select</option>
+               <option>Employee</option>
+               <option>Employer</option>
+           </select>
+         <a href="/#/">Forgot Password</a>
+    </div>
+    <button type="submit" name="login" class="btn btn-primary" >Login</button>
+    </form>
+     </div>
+    <p align="center">Not registered? Click <a href="/register/">here</a> to register!</p>
+</div>
+
+{##}
+{#<form action="/login/" method="post">#}
+{#    {% csrf_token %}#}
+{#<table align="center">#}
+{#    <tr><td>USEREMAIL:</td><td><input type="email" required name="email"></td></tr>#}
+{#    <tr><td>PASSWORD:</td><td><input type="password" required name="password"></td></tr>#}
+{#     <tr><td>TYPE:</td><th><select name="select" required>#}
+{#         <option selected disabled>select</option>#}
+{#            <option>Employee</option>#}
+{#            <option>Employer</option>#}
+{#            </select></th></tr>#}
+{#    <tr><th></th><th><input type="submit" value="Login"></th></tr>#}
+{##}
+{##}
+{#</table>#}
+{#        <p align="center">Not registered? Click <a href="/register/">here</a> to register!</p>#}
+{#     </form>#}
+{#  </div>#}
+
+
+</body>
+{% endblock %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'MyApp/base.html' %}
+{% block body_block %}
+<body>
+{% if message %}
+<div class="alert alert-danger text-center  alert-dismissible" >
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+ {{ message}}
+</div>
+{% endif %}
+
+<div class="container">
+ <div class="shadow p-4 mb-4 bg-white job_details">
+    <h2 align="center">Job Details</h2>
+
+    <hr class="hr">
+{#    <h3> Sales And Marketing Executive</h3>#}
+{#    <p style="font-size:1.5em">#}
+{#     <i class='fas fa-map-marker-alt'></i>  Gorakhpur,Jabalpur,<br>Madhya,482002c#}
+{#    <i class='fas fa-building'></i>  RCCE <br>#}
+{#     <i class="fas fa-rupee-sign"></i> 1000<br>#}
+{#    <i class="fas fa-clock"></i>  Part Time<br>#}
+{#   <i class="fas fa-users"></i>  100<br>#}
+{#    <i class="fas fa-user-graduate"></i>  BBA MBA  </p>#}
+
+{#   <i style="font-size:1.5em">#}
+
+      <br>{% for job in detail %}
+     <h2>{{ job.vacancyname }}</h2>
+      <p> <i class='fas fa-building'></i>  {{ job.companyname }}</p>
+      <p> <i class='fas fa-map-marker-alt'></i>  {{ job.address}},{{ job.country }}</p>
+       <p><i class="fas fa-clock"></i>  {{ job.vacancytype }}</p>
+<p>       <i class="fas fa-rupee-sign"></i>  {{ job.salary }}</p>
+<p>      <i class="fas fa-user-graduate"></i>  {{ job.qualification }}</p>
+<p>       <i class='fas fa-users'></i>  {{ job.vacancy }}</p>
+<p>      <i class="fas fa-pen">Description:</i>  {{ job.aboutjob }}</p>
+
+
+
+     {% if request.session.type == 'Employer' %}
+         <form method="post" action="/editjob/" >
+                       {%csrf_token %}
+         <input type="hidden" name="jobid" value="{{ job.id }}">
+         <input type="submit" name="edit" class="btn btn-success" value="Edit Job">
+         </form>
+              {% elif request.session.type == 'Employee'%}
+{#{% for select in selects %}#}
+             {% if selects == 'Yes' %}
+             <a href="" class="btn btn-success">Applied</a>
+             {% else %}
+          <form method="post" action="/applied/" >
+                       {%csrf_token %}
+         <input type="hidden" name="jobid" value="{{ job.id }}">
+              <input type="hidden" name="time" value="{{ time }}">
+
+         <input type="submit" name="apply" class="btn btn-success" value="Apply Job">
+
+         </form>
+{% endif %}
+{#         {% endfor %}#}
+{#     <a  href="/applied/"  class="btn btn-success">Apply</a>#}
+            {% else %}
+
+     <a  href="/login/"  class="btn btn-success">Login To Apply Or Edit  </a>
+          {% endif %}
+{% endfor %}
+
+      </div>
+ </div>
+
+</body>
+{% endblock %}

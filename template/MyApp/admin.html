@@ -1,0 +1,36 @@
+{% extends 'MyApp/base.html' %}
+{% block body_block %}
+<body>
+
+
+{#<style>#}
+{# h1{#}
+{#    text-align:center;#}
+{#}#}
+{#body{#}
+{#    background-image:url(https://analyticsindiamag.com/wp-content/uploads/2019/03/glenn-carstens-peters-203007-unsplash.jpg);#}
+{#    background-repeat:no-repeat;#}
+{#    background-size:cover;#}
+{#    color:black;#}
+{#}#}
+{#</style>#}
+
+<table>
+    <tr align="center"><td style="width:1400px"><h1 style="color:red">ADMIN LOGIN</h1></td></tr>
+</table>
+ <form action="/" method="post">
+     {% csrf_token %}
+
+ <table align="center">
+     <tr><td>USERNAME</td><td><INPUT type="text" required name="name"></td></tr>
+     <tr><td>PASSWAORD</td><td><input type="password" required name="password"></td></tr>
+     <tr><th></th><th><input type="submit" value="Login"></th></tr>
+
+
+</table>
+
+
+</form>
+
+</body>
+{% endblock %}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% extends 'MyApp/base.html' %}
+{% block body_block %}
+<body>
+{##}
+{#<table>#}
+{#    <tr align="center"><td style="width:1400px"><h1 style="color:red">REGISTRATION </h1></td></tr>#}
+{#</table>#}
+
+{% if message %}
+<div class="alert alert-danger text-center  alert-dismissible" >
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+ {{ message}}
+</div>
+{% endif %}
+
+<div class="container-fluid " id="login_form">
+     <div class="col-sm-4 card shadow-lg p-4 mb-4 mx-auto">
+
+<form action="/saveregister/" method="post">
+            {% csrf_token %}
+
+  	 <h2 class="bg-primary text-center text-white" style="border-radius:5px">REGISTRATION</h2>
+
+    <div class="form-group">
+     <label>USERNAME:</label>
+      <input type="text" class="form-control" id="namme" placeholder="Enter username" name="a1" required>
+     </div>
+    <div class="form-group">
+     <label>USEREMAIL:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter useremail" name="a3" required>
+     </div>
+     <div class="form-group">
+      <label>PASSWORD:</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter password" name="a10" required maxlength="6" size="6">
+     </div>
+       <div class="form-group   ">
+      <label>TYPE:</label><br>
+           <select name="a8" class="form-control" required>
+               <option selected disabled>select</option>
+               <option>Employee</option>
+               <option>Employer</option>
+           </select>
+         <a href="/#/">Forgot Password</a>
+    </div>
+    <button type="submit" name="login" class="btn btn-primary" >Register</button>
+    </form>
+     </div>
+  </div>
+
+{##}
+{#<table align="center">#}
+{##}
+{##}
+{# <table align="center">#}
+{#     <tr><td>USERNAME:</td><td><input type="text" name="a1" required></td></tr>#}
+{#    <tr><td>DATE OF BIRTH:</td><td><input type="date" name="a2" required></td></tr>#}
+{#    <tr><td>EMAIL ID:</td><td><input type="email" name="a3" required></td></tr>#}
+{#    <tr><td>GENDER:</td><td><input type="radio" name="a4" value="male" required>male#}
+{#    <input type="radio" name="a4" value="Female" required>female</td></tr>#}
+{#    <tr><td>MOBILE_NO:</td><td><input type="number" name="a5" required></td></tr>#}
+{#        <tr><td>ADDRESS:</td><td><input type="text" name="a6" required></td></tr>#}
+{#    <tr><td>QUALIFICATION:</td><td><input type="text" name="a7" required></td></tr>#}
+{#    <tr><td>TYPE:</td><td><select name="a8" required>#}
+{#            <option selected disabled>select</option>#}
+{#            <option>Employer</option>#}
+{#            <option>Employee</option>#}
+{#        </select></td></tr>#}
+{#     <tr><td>Password</td><td><input type="password" required name="a10"></td></tr>#}
+{#    <tr><td></td><td><input type="submit" value="Register" required></td></tr>#}
+{##}
+{##}
+{##}
+{# </table>#}
+{#</table>#}
+</body>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'MyApp/base.html' %}
+{% block body_block %}
+
+
+    <h2 align="center">Applied Jobs</h2>
+ {{ message }}
+   <br>
+{% for jobview in jobsview %}
+    {% for views in view %}
+    {{ jobview.companyname }}
+{#     {{ views.}#}
+     {{ views.appliedfor}}
+{#     {{ views.country }}#}
+{#     {{ views.vacancytype }}#}
+{#     {{ views.vacancyname }}#}
+{#     {{ views.salary }}#}
+{#     {{ views.qualification }}#}
+{#     {{ views.vacancy }}#}
+{#     {{ views.aboutjob }}#}
+
+
+    {% endfor %}
+
+     {% endfor %}
+
+{#     {% for views in jobsview  %}#}
+{#     {{views.companyname }}#}
+{#     {{ views.address}}#}
+{#     {{ views.country }}#}
+{#     {{ views.vacancytype }}#}
+{#     {{ views.vacancyname }}#}
+{#     {{ views.salary }}#}
+{#     {{ views.qualification }}#}
+{#     {{ views.vacancy }}#}
+{#     {{ views.aboutjob }}#}
+{##}
+{#     {% endfor %}#}
+
+
+
+{% endblock %}
